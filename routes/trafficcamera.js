@@ -12,3 +12,8 @@ async function getAllCams(ctx){
 }
 
 module.exports = router
+
+// data source
+// https://data.gov.hk/en-data/dataset/hk-td-tis_2-traffic-snapshot-images
+// data dictionary
+// https://static.data.gov.hk/td/traffic-snapshot-images/en/Summary_of_traffic_snapshot_images.pdf

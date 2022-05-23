@@ -17,25 +17,26 @@ module.exports = {
       "description": "Password of login",
       "type": "string"
     },
-    "firstname": {
-      "description": "User's first name",
-      "type": "string"
-    },
-    "lastname": {
-      "description": "User's last name",
-      "type": "string"
-    },
     "email":{
       "description": "User's e-mail address",
       "type": "string"
     },    
     "role":{
       "description": "either public user or admin user with edit rights",
-      "type": "string"
-    },    
-    "location": {
-      "description": "Which centre is the user belongs to?",
-      "type": "string"
+      "type": "string",
+      "default": "user"
+    },
+    "incidentReported": {
+      "description": "An array of all the incidents that reported by this user",
+      "type": "array"
+    },
+    "upvoteIncident": {
+      "description": "An array of unique incident ID that the user upvoted",
+      "type": "array"
+    },
+    "downvoteIncident": {
+      "description": "An array of unique incident ID that the user downvoted",
+      "type": "array"
     },
   },
   "required": ["username", "password", "email"]

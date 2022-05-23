@@ -12,3 +12,8 @@ async function getAllRoadworks(ctx){
 }
 
 module.exports = router
+
+// data source
+// https://data.gov.hk/en-data/dataset/hk-td-tis_18-roadworks-location
+// data dictionary
+// https://static.data.gov.hk/td/roadworks-location/dataspec/roadworks_location_data_specification.pdf

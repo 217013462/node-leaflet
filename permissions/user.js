@@ -15,10 +15,12 @@ ac.grant('user')
   .on('user',
       ['firstName', 'lastName', 'password', 'email'])
 //user can only update his/her OWN info
+ac.grant('user').execute('addIncident').on('incident')
 
 ac.grant('admin').execute('read').on('user')
 ac.grant('admin').execute('read').on('users')
 //admin can read other users' info
+ac.grant('admin').execute('addIncident').on('incident')
 
 ac.grant('admin')
   .condition({Fn:'NOT_EQUALS', args:{'requester':'$.owner'}})
@@ -30,3 +32,6 @@ exports.readAll = (requester) =>
 
 exports.read = (requester, data) =>
   ac.can(requester.role).context({requester:requester.username, owner:data}).execute('read').sync().on('user')
+
+exports.addIncident = (requester) => 
+  ac.can(requester.role).execute('addIncident').sync().on('incident')

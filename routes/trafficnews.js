@@ -12,3 +12,8 @@ async function getAllNews(ctx){
 }
 
 module.exports = router
+
+// data source
+// https://data.gov.hk/en-data/dataset/hk-td-tis_19-special-traffic-news-v2/resource/bcf73001-b557-48ab-b10c-28d88db0d684
+// schema
+// https://www.td.gov.hk/en/special_news/trafficnews.xsd
