@@ -25,8 +25,16 @@ module.exports = {
       "description": "Incident description",
       "type": "string"
     },
+    "momentReported": {
+      "description": "Moment of the incident reported",
+      "type": "string"
+    },
     "dateReported": {
-      "description": "Date and time of the incident reported",
+      "description": "Date of the incident reported (YYYY-MM-DD)",
+      "type": "string"
+    },
+    "timeReported": {
+      "description": "Time of the incident reported (HH:mm:ss)",
       "type": "string"
     },
     "userReported": {
@@ -42,5 +50,5 @@ module.exports = {
       "type": "array"
     },
   },
-  "required": ["type", "latitude", "longitude", "dateReported", "userReported"]
+  "required": ["type", "latitude", "longitude", "momentReported", "dateReported", "timeReported", "userReported"]
 }

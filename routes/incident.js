@@ -12,8 +12,11 @@ const router = Router({prefix: '/api/v1/incident'})
 router.get('/', getAll)
 router.get('/:id', getById)
 router.get('/type/:type', getByType)
+router.get('/vote/:incidentID/:userID', checkVote)
 router.post('/add', auth, bodyParser(), validateIncident, addIncident)
 router.put('/:id', auth, bodyParser(), validateIncident, updateById)
+router.put('/upvote/:id/:userID', upvoteById)
+router.put('/downvote/:id/:userID', downvoteById)
 router.del('/:id', auth, delById)
 
 async function getAll(ctx) {
@@ -21,6 +24,9 @@ async function getAll(ctx) {
   if (allIncidents) {
     ctx.status = 200
     ctx.body = allIncidents
+  } else {
+    ctx.status = 404
+    ctx.body = "{}"
   }
 }
 
@@ -30,15 +36,34 @@ async function getById(ctx) {
   if (incident) {
     ctx.status = 200
     ctx.body = incident
+  } else {
+    ctx.status = 404
+    ctx.body = "{}"
   }
 }
 
 async function getByType(ctx) {
   let type = ctx.params.type
-  let incidentType = await model.getByType(location)
+  let incidentType = await model.getByType(type)
   if (incidentType) {
     ctx.status = 200
     ctx.body = incidentType
+  } else {
+    ctx.status = 404
+    ctx.body = "{}"
+  }
+}
+
+async function checkVote(ctx) {
+  let incidentID = ctx.params.incidentID
+  let userID = ctx.params.userID
+  let result = await model.checkVote(incidentID, userID)
+  if (result) {
+    ctx.status = 200
+    ctx.body = result
+  } else {
+    ctx.status = 404
+    ctx.body = "{}"
   }
 }
 
@@ -69,6 +94,35 @@ async function updateById(ctx) {
     ctx.body = "{}"
   }
 }
+
+
+async function upvoteById(ctx) {
+  let id = ctx.params.id
+  let userID = ctx.params.userID
+  let result = await model.upvoteById(id, userID)
+  if (result) {
+    ctx.status = 200
+    ctx.body = result
+  } else {
+    ctx.status = 404
+    ctx.body = "{}"
+  }
+}
+
+
+async function downvoteById(ctx) {
+  let id = ctx.params.id
+  let userID = ctx.params.userID
+  let result = await model.downvoteById(id, userID)
+  if (result) {
+    ctx.status = 200
+    ctx.body = result
+  } else {
+    ctx.status = 404
+    ctx.body = "{}"
+  }
+}
+
 
 async function delById(ctx) {
   let id = ctx.params.id

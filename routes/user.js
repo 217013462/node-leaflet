@@ -13,6 +13,8 @@ const router = Router({prefix: '/api/v1/user'})
 router.get('/', auth, getAllUsers)
 router.get('/:username', auth, getByUsername)
 router.post('/reg', bodyParser(), validateUser, addUser)
+router.put('/:id/:incidentID', updateIncidentById)
+
 
 async function getAllUsers(ctx) {
   const permission = can.readAll(ctx.state.user)
@@ -60,6 +62,19 @@ async function addUser(ctx, next) {
   } catch(error) {
     console.log(error)
     response.status(500).send("Internal Error")
+  }
+}
+
+async function updateIncidentById(ctx) {
+  let id = ctx.params.id
+  let incidentID = ctx.params.incidentID
+  let result = await model.updateIncidentById(id, incidentID)
+  if (result) {
+    ctx.status = 200
+    ctx.body = result
+  } else {
+    ctx.status = 404
+    ctx.body = "{}"
   }
 }
 

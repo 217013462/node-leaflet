@@ -43,7 +43,7 @@ exports.run_insert = async function run_insert(collection, document) {
   const dbClient = await Client.connect(CONNECTION_URI)
   const result = await dbClient.db(DATABASE_NAME).collection(collection).insertOne(document)
   // insertOne to make sure only inserting one record
-  return {'status': 201, 'description': 'Successfully created'}
+  return {'status': 201, 'description': 'Successfully created', 'data': result}
 }
 
 /**
