@@ -12,6 +12,7 @@ const router = Router({prefix: '/api/v1/incident'})
 router.get('/', getAll)
 router.get('/:id', getById)
 router.get('/type/:type', getByType)
+router.get('/filter/6hour', getByTime)
 router.get('/vote/:incidentID/:userID', checkVote)
 router.post('/add', auth, bodyParser(), validateIncident, addIncident)
 router.put('/:id', auth, bodyParser(), validateIncident, updateById)
@@ -48,6 +49,17 @@ async function getByType(ctx) {
   if (incidentType) {
     ctx.status = 200
     ctx.body = incidentType
+  } else {
+    ctx.status = 404
+    ctx.body = "{}"
+  }
+}
+
+async function getByTime(ctx) {
+  let filteredIncidents = await model.getByTime()
+  if (filteredIncidents) {
+    ctx.status = 200
+    ctx.body = filteredIncidents
   } else {
     ctx.status = 404
     ctx.body = "{}"

@@ -1,5 +1,6 @@
 const db = require('../helpers/database')
 const ObjectId = require('mongodb').ObjectId
+const moment = require('moment')
 
 exports.getAll = async function getAll () {
   let data = await db.run_query('incident', {})
@@ -18,6 +19,18 @@ exports.getByType = async function getByType (type) {
   let data = await db.run_query('incident', {'type':type})
   return data
 }
+
+
+exports.getByTime = async function getByTime () {
+  let SixHoursBefore = moment().subtract(6, 'hours').toDate()
+  let data = await db.run_query('incident', 
+                                {'momentReported': 
+                                {'$gte': Date(SixHoursBefore)}}
+                                )
+  return data
+}
+// https://www.mongodb.com/docs/manual/reference/method/Date/
+// https://database.guide/3-ways-to-convert-a-string-to-a-date-in-mongodb/
 
 
 exports.checkVote = async function checkVote (incidentID, userID) {

@@ -27,7 +27,7 @@ module.exports = {
     },
     "momentReported": {
       "description": "Moment of the incident reported",
-      "type": "string"
+      "type": "date-time"
     },
     "dateReported": {
       "description": "Date of the incident reported (YYYY-MM-DD)",
