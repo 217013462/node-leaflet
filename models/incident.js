@@ -22,15 +22,13 @@ exports.getByType = async function getByType (type) {
 
 
 exports.getByTime = async function getByTime () {
-  let SixHoursBefore = moment().subtract(6, 'hours').toDate()
+  let SixHoursBefore = moment().subtract(6, 'hours').format()
   let data = await db.run_query('incident', 
                                 {'momentReported': 
-                                {'$gte': Date(SixHoursBefore)}}
+                                {'$gte': SixHoursBefore}}
                                 )
   return data
 }
-// https://www.mongodb.com/docs/manual/reference/method/Date/
-// https://database.guide/3-ways-to-convert-a-string-to-a-date-in-mongodb/
 
 
 exports.checkVote = async function checkVote (incidentID, userID) {
