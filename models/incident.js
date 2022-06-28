@@ -22,7 +22,7 @@ exports.getByType = async function getByType (type) {
 
 
 exports.getByTime = async function getByTime () {
-  let SixHoursBefore = moment().subtract(6, 'hours').format()
+  let SixHoursBefore = moment().subtract(6, 'hours').toISOString()
   let data = await db.run_query('incident', 
                                 {'momentReported': 
                                 {'$gte': SixHoursBefore}}
